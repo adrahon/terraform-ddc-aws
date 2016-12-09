@@ -39,12 +39,17 @@ resource "aws_instance" "ucp-manager" {
   instance_type = "${var.manager_instance_type}"
   key_name      = "${var.key_name}"
 
+  root_block_device {
+    volume_type = "gp2"
+    delete_on_termination = true
+  }
+
   count = "${var.ucp_manager_count}"
 
   security_groups = [ "${aws_security_group.ddc.name}" ]
 
   tags {
-    Name = "ucp-manager${count.index + 1}"
+    Name = "${var.name_prefix}ucp-manager${count.index + 1}"
   }
 }
 
@@ -53,12 +58,17 @@ resource "aws_instance" "ucp-worker" {
   instance_type = "${var.worker_instance_type}"
   key_name      = "${var.key_name}"
 
+  root_block_device {
+    volume_type = "gp2"
+    delete_on_termination = true
+  }
+
   count = "${var.ucp_worker_count}"
 
   security_groups = [ "${aws_security_group.ddc.name}" ]
 
   tags {
-    Name = "ucp-node${count.index + 1}"
+    Name = "${var.name_prefix}ucp-node${count.index + 1}"
   }
 }
 
