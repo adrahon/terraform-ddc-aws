@@ -5,7 +5,7 @@ provider "aws" {
 }
 
 resource "aws_security_group" "ddc" {
-    name = "ddc-default"
+    name = "${var.name_prefix}_ddc-default"
     description = "Default Security Group for Docker Datacenter"
 
     ingress {
@@ -49,7 +49,7 @@ resource "aws_instance" "ucp-manager" {
   security_groups = [ "${aws_security_group.ddc.name}" ]
 
   tags {
-    Name = "${var.name_prefix}ucp-manager${count.index + 1}"
+    Name = "${var.name_prefix}_ucp-manager${count.index + 1}"
   }
 }
 
@@ -68,7 +68,7 @@ resource "aws_instance" "ucp-worker" {
   security_groups = [ "${aws_security_group.ddc.name}" ]
 
   tags {
-    Name = "${var.name_prefix}ucp-node${count.index + 1}"
+    Name = "${var.name_prefix}_ucp-node${count.index + 1}"
   }
 }
 

@@ -35,4 +35,7 @@ variable "manager_instance_type" {
 variable "worker_instance_type" {
   default = "m3.medium"
 }
-variable "name_prefix" {}
+variable "name_prefix" {
+  default = "test"
+}
+
