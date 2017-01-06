@@ -34,6 +34,42 @@ resource "aws_security_group" "ddc" {
     }
 }
 
+resource "aws_security_group" "apps" {
+    name = "${var.name_prefix}_apps-default"
+    description = "Default Security Group for Docker Datacenter applications"
+
+    ingress {
+        from_port = 443
+        to_port = 443
+        protocol = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+    egress {
+        from_port = 0
+        to_port = 0
+        protocol = "-1"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+}
+
+resource "aws_security_group" "elb" {
+    name = "${var.name_prefix}_elb-default"
+    description = "Default Security Group for Docker Datacenter ELBs"
+
+    ingress {
+        from_port = 443
+        to_port = 443
+        protocol = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+    egress {
+        from_port = 0
+        to_port = 0
+        protocol = "-1"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+}
+
 resource "aws_instance" "ucp-manager" {
   ami           = "${lookup(var.aws_amis, var.aws_region)}"
   instance_type = "${var.manager_instance_type}"
@@ -47,6 +83,7 @@ resource "aws_instance" "ucp-manager" {
   count = "${var.ucp_manager_count}"
 
   security_groups = [ "${aws_security_group.ddc.name}" ]
+  availability_zone = "${element(split(",", var.availability_zones), count.index) }"
 
   tags {
     Name = "${var.name_prefix}_ucp-manager${count.index + 1}"
@@ -66,6 +103,7 @@ resource "aws_instance" "ucp-worker" {
   count = "${var.ucp_worker_count}"
 
   security_groups = [ "${aws_security_group.ddc.name}" ]
+  availability_zone = "${element(split(",", var.availability_zones), count.index) }"
 
   tags {
     Name = "${var.name_prefix}_ucp-node${count.index + 1}"

@@ -5,6 +5,9 @@ variable "public_key" {}
 variable "aws_region" {
   default = "us-east-1"
 }
+variable "availability_zones" {
+  default = "us-east-1a,us-east-1b,us-east-1d"
+}
 variable "aws_amis" {
   type = "map"
   default = {
@@ -38,4 +41,15 @@ variable "worker_instance_type" {
 variable "name_prefix" {
   default = "test"
 }
-
+variable "zone_name" {
+  default = "example.com"
+}
+variable "ucp_dns" {
+  default = "ucp"
+}
+variable "dtr_dns" {
+  default = "dtr"
+}
+variable "apps_dns" {
+  default = "apps"
+}
