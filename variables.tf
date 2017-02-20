@@ -41,7 +41,7 @@ variable "worker_instance_type" {
 variable "name_prefix" {
   default = "test"
 }
-variable "zone_name" {
+variable "domainname" {
   default = "example.com"
 }
 variable "ucp_dns" {
@@ -52,4 +52,7 @@ variable "dtr_dns" {
 }
 variable "apps_dns" {
   default = "apps"
+}
+variable "hostname" {
+  default = "node"
 }
