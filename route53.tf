@@ -24,6 +24,14 @@ resource "aws_route53_record" "ucp" {
   records = ["${aws_elb.ucp.dns_name}"]
 }
 
+resource "aws_route53_record" "dtr" {
+  zone_id = "${aws_route53_zone.ddc.zone_id}"
+  name = "${var.dtr_dns}.${var.domainname}."
+  type = "CNAME"
+  ttl = "300"
+  records = ["${aws_elb.dtr.dns_name}"]
+}
+
 resource "aws_route53_record" "apps" {
   zone_id = "${aws_route53_zone.ddc.zone_id}"
   name = "*.${var.apps_dns}.${var.domainname}."
