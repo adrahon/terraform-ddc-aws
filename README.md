@@ -18,3 +18,22 @@ You need to define the following variables:
 There are more variables you can define, look in [variables.tf](variables.tf)
 
 After `terraform apply`, get `terraform output` will give you the info needed to feed <https://github.com/adrahon/ansible-docker-ucp>
+
+## Customization
+
+The easiest way to change some of the parameters is to add a `override.tf` file. For example, to change the AMI used it would have this content:
+
+```
+resource "aws_instance" "ucp-manager" {
+  ami           = "ami-e8f9f28e"
+}
+
+resource "aws_instance" "ucp-dtr" {
+  ami           = "ami-e8f9f28e"
+}
+
+resource "aws_instance" "ucp-worker" {
+  ami           = "ami-e8f9f28e"
+}
+
+```
