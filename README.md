@@ -8,9 +8,9 @@ Currently provides:
 
 ## Usage
 
-You need to define the following variables, please follow [good practices](https://www.terraform.io/intro/getting-started/variables.html) to avoid sharing your credentials:
- - `access_key`: for your AWS account
- - `secret_key`: for your AWS account
+The scripts use default credentials management for AWS, most likely in `~/.aws/credentials`, see the [Terraform docs](https://www.terraform.io/docs/providers/aws/index.html) or this [AWS blog post](https://aws.amazon.com/blogs/apn/terraform-beyond-the-basics-with-aws/) for more details
+
+You need to define the following variables:
  - `aws_region`: defaults to `us-east-1`
  - `key_name`: the name of an existing key-pair
  - `public_key`: the public key
